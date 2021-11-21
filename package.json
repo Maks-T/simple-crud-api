@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Maks-T/simple-crud-api/issues"
   },
-  "homepage": "https://github.com/Maks-T/simple-crud-api#readme"
+  "homepage": "https://github.com/Maks-T/simple-crud-api#readme",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
 }

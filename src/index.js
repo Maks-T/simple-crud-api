@@ -26,6 +26,7 @@ const isIdPersonInPath = (pathURL) => {
   const arrPathURL = pathURL.split("/");
 
   if (arrPathURL.length !== 3) return false;
+  if (arrPathURL[1] !== "person") return false;
 
   return true;
 };
@@ -42,7 +43,7 @@ const isIdPersonValid = (id) => {
   return id.match(v4);
 };
 
-const getPostData = (req) => {
+const getReqData = (req) => {
   return new Promise((resolve, reject) => {
     try {
       let body = "";
@@ -78,6 +79,16 @@ const addNewPerson = (body) => {
   return body;
 };
 
+const updatePerson = (body, id) => {
+  body = { id, ...body };
+
+  indexPerson = db.findIndex((person) => person.id === id);
+
+  db[indexPerson] = body;
+
+  return body;
+};
+
 const server = http.createServer((req, res) => {
   console.log(`${y}Method ${req.method}, url = '${req.url}'${w}`);
 
@@ -106,12 +117,12 @@ const server = http.createServer((req, res) => {
     }
     //POST PERSON
   } else if (isPersonInPath(req.url) && req.method === "POST") {
-    getPostData(req).then((body) => {
-      console.log(body);
+    getReqData(req).then((body) => {
+      console.log("body  ", body);
       if (isValidBody(body)) {
-        const newPerson = addNewPerson(body);
+        const person = addNewPerson(body);
         res.writeHead(201, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(newPerson));
+        res.end(JSON.stringify(person));
       } else {
         res.writeHead(400, { "Content-Type": "application/json" });
         res.end(
@@ -121,6 +132,39 @@ const server = http.createServer((req, res) => {
         );
       }
     });
+    // PUT PERSON
+  } else if (isIdPersonInPath(req.url) && req.method === "PUT") {
+    const id = getIdPersonFromPath(req.url);
+
+    if (isIdPersonValid(id)) {
+      findPerson = db.find((person) => person.id == id);
+      if (findPerson) {
+        getReqData(req).then((body) => {
+          if (isValidBody(body)) {
+            const person = updatePerson(body, id);
+
+            res.writeHead(200, { "Content-Type": "application/json" });
+            console.log(person);
+            res.end(JSON.stringify(person));
+          } else {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({
+                message: "Error: The body does not contain required properties",
+              })
+            );
+          }
+        });
+      } else {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({ message: `Error: Person with ID='${id}' not found` })
+        );
+      }
+    } else {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Error: Invalid ID person" }));
+    }
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ message: "Error: Invalid Request" }));

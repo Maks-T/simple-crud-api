@@ -82,7 +82,7 @@ const addNewPerson = (body) => {
 const updatePerson = (body, id) => {
   body = { id, ...body };
 
-  indexPerson = db.findIndex((person) => person.id === id);
+  const indexPerson = db.findIndex((person) => person.id === id);
 
   db[indexPerson] = body;
 
@@ -101,7 +101,7 @@ const server = http.createServer((req, res) => {
     const id = getIdPersonFromPath(req.url);
 
     if (isIdPersonValid(id)) {
-      findPerson = db.find((person) => person.id == id);
+      const findPerson = db.find((person) => person.id == id);
       if (findPerson) {
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(findPerson));
@@ -137,7 +137,7 @@ const server = http.createServer((req, res) => {
     const id = getIdPersonFromPath(req.url);
 
     if (isIdPersonValid(id)) {
-      findPerson = db.find((person) => person.id == id);
+      const findPerson = db.find((person) => person.id == id);
       if (findPerson) {
         getReqData(req).then((body) => {
           if (isValidBody(body)) {
@@ -155,6 +155,26 @@ const server = http.createServer((req, res) => {
             );
           }
         });
+      } else {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({ message: `Error: Person with ID='${id}' not found` })
+        );
+      }
+    } else {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Error: Invalid ID person" }));
+    }
+  } // DELETE
+  else if (isIdPersonInPath(req.url) && req.method === "DELETE") {
+    const id = getIdPersonFromPath(req.url);
+
+    if (isIdPersonValid(id)) {
+      const findIndex = db.findIndex((person) => person.id == id);
+      if (findIndex !== -1) {
+        res.writeHead(204, { "Content-Type": "application/json" });
+        db.splice(findIndex, 1);
+        res.end();
       } else {
         res.writeHead(404, { "Content-Type": "application/json" });
         res.end(

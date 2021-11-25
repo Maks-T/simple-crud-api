@@ -1,15 +1,15 @@
 const http = require("http");
 const { v4: uuidv4 } = require("uuid");
-const fs = require("fs");
+//const fs = require("fs");
 const path = require("path");
 const { db } = require("./database/db");
 
 const hostname = "127.0.0.1";
 
-const configApp = JSON.parse(fs.readFileSync(path.join(__dirname, ".env")));
-process.env.PORT = configApp.PORT;
+//const configApp = JSON.parse(fs.readFileSync(path.join(__dirname, ".env")));
+//process.env.PORT = configApp.PORT;
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 const r = "\x1b[31m";
 const w = "\x1b[37m";

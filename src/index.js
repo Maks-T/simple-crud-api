@@ -98,6 +98,7 @@ const getPerson = (req, res) => {
 
   if (isIdPersonValid(id)) {
     const findPerson = db.find((person) => person.id == id);
+
     if (findPerson) {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(findPerson));
@@ -114,21 +115,27 @@ const getPerson = (req, res) => {
 };
 
 const postPerson = (req, res) => {
-  getReqData(req).then((body) => {
-    console.log("body  ", body);
-    if (isValidBody(body)) {
-      const person = addNewPerson(body);
-      res.writeHead(201, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(person));
-    } else {
-      res.writeHead(400, { "Content-Type": "application/json" });
-      res.end(
-        JSON.stringify({
-          message: "Error: The body does not contain required properties",
-        })
-      );
-    }
-  });
+  getReqData(req)
+    .then((body) => {
+      console.log("body  ", body);
+
+      if (isValidBody(body)) {
+        const person = addNewPerson(body);
+        res.writeHead(201, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(person));
+      } else {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(
+          JSON.stringify({
+            message: "Error: The body does not contain required properties",
+          })
+        );
+      }
+    })
+    .catch((e) => {
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Error: 500 Internal Server Error" }));
+    });
 };
 
 const putPerson = (req, res) => {
@@ -136,23 +143,31 @@ const putPerson = (req, res) => {
 
   if (isIdPersonValid(id)) {
     const findPerson = db.find((person) => person.id == id);
-    if (findPerson) {
-      getReqData(req).then((body) => {
-        if (isValidBody(body)) {
-          const person = updatePerson(body, id);
 
-          res.writeHead(200, { "Content-Type": "application/json" });
-          console.log(person);
-          res.end(JSON.stringify(person));
-        } else {
-          res.writeHead(400, { "Content-Type": "application/json" });
+    if (findPerson) {
+      getReqData(req)
+        .then((body) => {
+          if (isValidBody(body)) {
+            const person = updatePerson(body, id);
+
+            res.writeHead(200, { "Content-Type": "application/json" });
+            console.log(person);
+            res.end(JSON.stringify(person));
+          } else {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(
+              JSON.stringify({
+                message: "Error: The body does not contain required properties",
+              })
+            );
+          }
+        })
+        .catch((e) => {
+          res.writeHead(500, { "Content-Type": "application/json" });
           res.end(
-            JSON.stringify({
-              message: "Error: The body does not contain required properties",
-            })
+            JSON.stringify({ message: "Error: 500 Internal Server Error" })
           );
-        }
-      });
+        });
     } else {
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(

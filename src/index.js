@@ -52,7 +52,14 @@ const getReqData = (req) => {
       });
 
       req.on("end", () => {
-        resolve(JSON.parse(body));
+        let bodyParse;
+        try {
+          bodyParse = JSON.parse(body);
+        } catch (e) {
+          console.log(e);
+          reject(e);
+        }
+        if (bodyParse) resolve(JSON.parse(bodyParse));
       });
     } catch (err) {
       reject(err);

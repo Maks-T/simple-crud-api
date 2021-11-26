@@ -1,10 +1,11 @@
 ## Инструкция работы с приложением
 
 1. Команды для запуска приложения:
-   `"npm run start:dev"` - Приложение запускается в development-режиме при помощи nodemon;
-   `"npm run start:prod"` - Приложение запускается в production-режиме при помощи webpack;
-   `"npm run build:dev"` - Приложение собирается в production-режиме при помощи webpack;
-   `"npm run build:prod"` - Приложение собирается в production-режиме при помощи webpack;
+
+   - `"npm run start:dev"` - Приложение запускается в development-режиме при помощи nodemon;
+   - `"npm run start:prod"` - Приложение запускается в production-режиме при помощи webpack;
+   - `"npm run build:dev"` - Приложение собирается в production-режиме при помощи webpack;
+   - `"npm run build:prod"` - Приложение собирается в production-режиме при помощи webpack;
 
 2. Сервер возвращает соответствующие ответы на запросы:
 

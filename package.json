@@ -8,8 +8,7 @@
     "start:prod": "webpack --watch --config webpack.prod.js",
     "start:dev-bundle": "webpack --watch --config webpack.dev.js",
     "build:prod": "webpack --config webpack.prod.js",
-    "build:dev": "webpack --config webpack.dev.js",
-    "build": "webpack"
+    "build:dev": "webpack --config webpack.dev.js"
   },
   "keywords": [],
   "author": "Maksim Tsatsura",

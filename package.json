@@ -15,9 +15,11 @@
   "author": "Maksim Tsatsura",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "dotenv-webpack": "^7.0.3",
     "nodemon": "^2.0.15",
     "nodemon-webpack-plugin": "^4.6.0",
     "webpack": "^5.64.2",

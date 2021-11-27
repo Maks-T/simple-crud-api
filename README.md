@@ -4,6 +4,8 @@
 
 - `git clone https://github.com/Maks-T/simple-crud-api.git` - клонируйть репозиторий ;
 - `cd simple-crud-api` - перейти в директорию;
+- `git checkout dev` - выбирите ветку `dev`;
+- `npm i` - установите зависимости;
 
 1. Команды для запуска приложения:
 

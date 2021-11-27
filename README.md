@@ -1,5 +1,10 @@
 ## Инструкция работы с приложением
 
+Перед началом необходимо:
+
+- `git clone https://github.com/Maks-T/simple-crud-api.git` - клонируйть репозиторий ;
+- `cd simple-crud-api` - перейти в директорию;
+
 1. Команды для запуска приложения:
 
    - `"npm run start:dev"` - Приложение запускается в development-режиме при помощи nodemon;

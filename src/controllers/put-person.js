@@ -45,6 +45,6 @@ module.exports.putPerson = (req, res) => {
     }
   } else {
     res.writeHead(400, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "Error: Invalid ID person" }));
+    res.end(JSON.stringify({ message: "Error: 400 Invalid ID person" }));
   }
 };

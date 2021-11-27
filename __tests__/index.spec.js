@@ -156,5 +156,83 @@ describe(`${y}E2E tests SERVER: Сценарий №2 ${w}`, () => {
 // POST-запросом создается новый объект (ожидается ответ, содержащий свежесозданный объект)
 // PUT-запросом пытаемся обновить объект по невалидному id (ожидается ошибка 400 и объект с сообщением об ошибке { message: "Error: Invalid ID person" })
 // PUT-запросом пытаемся обновить объект по несуществующему id (ожидается ошибка 404 и объект с сообщением об ошибке { message: `Error: Person with ID='${id}' not found`)
+// DELETE-запросом пытаемся удалить объект по невалидному id (ожидается объект с сообщением об ошибке expect(message).toEqual({ message: "Error: 400 Invalid ID person" });
 // DELETE-запросом удаляем созданный объект по id (ожидается подтверждение успешного удаления)
 // DELETE-запросом пытаемся удалить объект по тому же id (ожидается объект с сообщением об ошибке {message: `Error: 404 Person with ID='${id}' not found`})
+
+describe(`${y}E2E tests SERVER: Сценарий №3 ${w}`, () => {
+  let id = "dc375068-4ae6-11ec-81d3-0242ac130003";
+  const mockPerson = {
+    name: "ALeksey",
+    age: 42,
+    hobbies: ["fish", "animals", "woomen"],
+  };
+
+  test("PUT-запросом пытаемся обновить объект по невалидному id (ожидается ошибка 400 и объект с сообщением об ошибке { message: 'Error: 400 Invalid ID person' })", async () => {
+    const response = await fetch(baseUrl + "/" + "InvalidID", {
+      method: "PUT",
+      body: JSON.stringify(mockPerson),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const message = await response.json();
+    expect(response.status).toBe(400);
+    expect(message).toEqual({ message: "Error: 400 Invalid ID person" });
+  });
+
+  test("PUT-запросом пытаемся обновить объект по несуществующему id (ожидается ошибка 404 и объект с сообщением об ошибке { message: `Error: Person with ID='${id}' not found`)", async () => {
+    const response = await fetch(baseUrl + "/" + id, {
+      method: "PUT",
+      body: JSON.stringify(mockPerson),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const message = await response.json();
+    expect(response.status).toBe(404);
+    expect(message).toEqual({
+      message: `Error: Person with ID='${id}' not found`,
+    });
+  });
+
+  test("POST-запросом создается новый объект (ожидается ответ, содержащий свежесозданный объект)", async () => {
+    const response = await fetch(baseUrl, {
+      method: "POST",
+      body: JSON.stringify(mockPerson),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await response.json();
+
+    expect(data).toMatchObject(mockPerson);
+
+    id = data.id;
+  });
+
+  test(`DELETE-запросом пытаемся удалить объект по невалидному id (ожидается объект с сообщением об ошибке expect(message).toEqual({ message: "Error: 400 Invalid ID person" });`, async () => {
+    const response = await fetch(baseUrl + "/" + "InvalidID", {
+      method: "DELETE",
+    });
+    const status = await response.status;
+    const message = await response.json();
+
+    expect(status).toBe(400);
+    expect(message).toEqual({ message: "Error: 400 Invalid ID person" });
+  });
+
+  test(`DELETE-запросом удаляем созданный объект по id (ожидается подтверждение успешного удаления)`, async () => {
+    const response = await fetch(baseUrl + "/" + id, { method: "DELETE" });
+    const status = await response.status;
+    expect(status).toBe(204);
+  });
+
+  test(`DELETE-запросом пытаемся удалить объект по тому же id (ожидается объект с сообщением об ошибке {message: 'Error: 404 Person with ID not found'})`, async () => {
+    const response = await fetch(baseUrl + "/" + id, { method: "DELETE" });
+    const status = await response.status;
+    const message = await response.json();
+
+    expect(status).toBe(404);
+    expect(message).toEqual({
+      message: `Error: 404 Person with ID='${id}' not found`,
+    });
+  });
+});

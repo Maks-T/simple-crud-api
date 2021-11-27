@@ -17,7 +17,7 @@ require("dotenv").config({
 
 const hostname = "127.0.0.1";
 
-const port = process.env.PORT || 3005;
+const port = process.env.PORT || 3000;
 
 const r = "\x1b[31m";
 const w = "\x1b[37m";

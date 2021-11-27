@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "simple-crud-api",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:cover": "jest --coverage",
     "start:dev": "nodemon ./src/index.js",
     "start:prod": "webpack --watch --config webpack.prod.js",
     "start:dev-bundle": "webpack --watch --config webpack.dev.js",
@@ -15,10 +16,11 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "node-fetch": "^2.6.6",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "dotenv-webpack": "^7.0.3",
+    "jest": "^27.3.1",
     "nodemon": "^2.0.15",
     "nodemon-webpack-plugin": "^4.6.0",
     "webpack": "^5.64.2",

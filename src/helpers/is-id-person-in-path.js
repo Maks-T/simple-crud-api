@@ -1,4 +1,4 @@
-const isIdPersonInPath = (pathURL) => {
+module.exports.isIdPersonInPath = (pathURL) => {
   const arrPathURL = pathURL.split("/");
 
   if (arrPathURL.length !== 3) return false;

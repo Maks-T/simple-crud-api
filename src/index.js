@@ -39,7 +39,11 @@ const server = http.createServer((req, res) => {
       deletePerson(req, res);
     } else {
       res.writeHead(404, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ message: "Error: Invalid Request" }));
+      res.end(
+        JSON.stringify({
+          message: `Error: 404 Invalid Request! The resource '${req.url}'  does not exist`,
+        })
+      );
     }
   } catch (e) {
     res.writeHead(500, { "Content-Type": "application/json" });

@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-const { isValidBody } = require("./../src/controllers/utils/is-validy-body");
 
 const baseUrl = "http://127.0.0.1:3000/person";
 

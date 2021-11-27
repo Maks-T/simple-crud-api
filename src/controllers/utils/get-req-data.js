@@ -12,7 +12,6 @@ module.exports.getReqData = (req) => {
         try {
           bodyParse = JSON.parse(body);
         } catch (e) {
-          console.log(e);
           reject(e);
         }
 

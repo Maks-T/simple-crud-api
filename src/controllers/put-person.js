@@ -20,7 +20,7 @@ module.exports.putPerson = (req, res) => {
             const person = updatePerson(body, id);
 
             res.writeHead(200, { "Content-Type": "application/json" });
-            console.log(person);
+            console.log("GET DATA", person);
             res.end(JSON.stringify(person));
           } else {
             res.writeHead(400, { "Content-Type": "application/json" });

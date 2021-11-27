@@ -8,7 +8,7 @@ const {
 module.exports.postPerson = (req, res) => {
   getReqData(req)
     .then((body) => {
-      console.log("body  ", body);
+      console.log("body: ", body);
 
       if (isValidBody(body)) {
         const person = addNewPerson(body);

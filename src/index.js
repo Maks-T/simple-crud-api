@@ -26,7 +26,6 @@ const y = "\x1b[33m";
 const server = http.createServer((req, res) => {
   try {
     console.log(`${y}Method ${req.method}, url = '${req.url}'${w}`);
-
     if (isPersonInPath(req.url) && req.method === "GET") {
       getPersons(res);
     } else if (isIdPersonInPath(req.url) && req.method === "GET") {

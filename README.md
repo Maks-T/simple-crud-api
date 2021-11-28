@@ -146,19 +146,20 @@
 
   - Сервер возвращает статус код 204 если запись найдена и удалена
   - Сервер возвращает статус код 400 и соответствующее сообщение, если `personId` невалиден (не `uuid`):
+
     ```javascript
     {
       "message": "Error: 400 Invalid ID person"
     }
     ```
 
-  ````
   - Сервер возвращает статус код 404 и соответствующее сообщение, если запись с `id === personId` не найдена:
+
   ```javascript
     {
       "message": "Error: 404 Person with ID='e7ecdd91-a9e1-4aac-975f-c8206d318199' not found"
     }
-  ````
+  ```
 
 - **GET**, **POST**, **PUT**, **DELETE** `http://127.0.0.1:3000/person/some/resource`
 

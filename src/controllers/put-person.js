@@ -26,7 +26,8 @@ module.exports.putPerson = (req, res) => {
             res.writeHead(400, { "Content-Type": "application/json" });
             res.end(
               JSON.stringify({
-                message: "Error: The body does not contain required properties",
+                message:
+                  "Error: 400 The body does not contain required properties",
               })
             );
           }
@@ -40,7 +41,9 @@ module.exports.putPerson = (req, res) => {
     } else {
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(
-        JSON.stringify({ message: `Error: Person with ID='${id}' not found` })
+        JSON.stringify({
+          message: `Error: Person 404 with ID='${id}' not found`,
+        })
       );
     }
   } else {

@@ -13,7 +13,9 @@ module.exports.getPerson = (req, res) => {
     } else {
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end(
-        JSON.stringify({ message: `Error: Person with ID='${id}' not found` })
+        JSON.stringify({
+          message: `Error: Person 404 with ID='${id}' not found`,
+        })
       );
     }
   } else {

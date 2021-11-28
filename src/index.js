@@ -46,7 +46,7 @@ const server = http.createServer((req, res) => {
     }
   } catch (e) {
     res.writeHead(500, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "Error: 500 Internal Server Error" }));
+    res.end(JSON.stringify({ message: "Error: 500 Internal Server Error." }));
   }
 });
 

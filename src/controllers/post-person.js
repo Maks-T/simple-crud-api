@@ -18,7 +18,7 @@ module.exports.postPerson = (req, res) => {
         res.writeHead(400, { "Content-Type": "application/json" });
         res.end(
           JSON.stringify({
-            message: "Error: The body does not contain required properties",
+            message: "Error: 400 The body does not contain required properties",
           })
         );
       }
